@@ -1,0 +1,50 @@
+name: myraid_tasks
+description: A production-ready task management and productivity application.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.8
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+
+  # Navigation
+  go_router: ^14.6.2
+
+  # HTTP Client
+  dio: ^5.7.0
+
+  # Secure Token Storage
+  flutter_secure_storage: ^9.2.2
+
+  # Local Cache
+  shared_preferences: ^2.3.3
+
+  # Date Formatting
+  intl: ^0.19.0
+
+  # Typography
+  google_fonts: ^6.2.1
+
+  # Animations
+  flutter_animate: ^4.5.0
+
+  # Loading Shimmer
+  shimmer: ^3.0.0
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  mockito: ^5.4.4
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true
