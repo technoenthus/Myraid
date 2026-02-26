@@ -45,8 +45,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _fillDemoCredentials() {
-    _usernameCtrl.text = 'emilys';
-    _passwordCtrl.text = 'emilyspass';
+    _usernameCtrl.text = 'Disha';
+    _passwordCtrl.text = 'Dishapass';
   }
 
   @override
@@ -212,7 +212,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          'Demo: username: emilys  •  password: emilyspass',
+                          'Demo: username: Disha  •  password: Dishapass',
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 color: colorScheme.onSurface.withValues(alpha: 0.7),
                               ),

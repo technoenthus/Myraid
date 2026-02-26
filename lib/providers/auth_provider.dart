@@ -76,7 +76,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final user = await _repo.restoreSession();
       state =
           user != null ? AuthAuthenticated(user) : const AuthUnauthenticated();
-    } catch (_) {
+    } catch (e) {
+      // Silently fail on network errors during splash – user will login normally
       state = const AuthUnauthenticated();
     }
   }

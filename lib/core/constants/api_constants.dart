@@ -14,6 +14,6 @@ class ApiConstants {
   static const int pageLimit = 10;
 
   // Timeouts (ms)
-  static const int connectTimeout = 10000;
-  static const int receiveTimeout = 15000;
+  static const int connectTimeout = 20000;
+  static const int receiveTimeout = 30000;
 }

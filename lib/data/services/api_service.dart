@@ -82,8 +82,10 @@ class ApiService {
   AppException _handleError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
+        return AppException.unknown('Request timeout. Please check your internet connection and try again.');
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
+        return AppException.unknown('Server is taking too long to respond. Please try again.');
       case DioExceptionType.connectionError:
         return AppException.networkError();
       case DioExceptionType.badResponse:

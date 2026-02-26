@@ -11,6 +11,27 @@ class AuthRepository {
   AuthRepository(this._api, this._storage);
 
   Future<UserModel> login(String username, String password) async {
+    // Check locally registered users first (e.g. accounts created via Register screen).
+    final localData = _storage.getLocalUser(username);
+    if (localData != null) {
+      if (localData['password'] != password) {
+        throw AppException.unknown('Invalid username or password.');
+      }
+      final token = 'local_${DateTime.now().millisecondsSinceEpoch}';
+      final user = UserModel(
+        id: localData['id'] as int,
+        username: localData['username'] as String,
+        email: localData['email'] as String,
+        firstName: localData['firstName'] as String,
+        lastName: localData['lastName'] as String,
+        token: token,
+      );
+      await _storage.saveToken(token);
+      await _storage.saveUser(user.toJson());
+      return user;
+    }
+
+    // Fall back to DummyJSON API for pre-seeded accounts (emilys, etc.).
     final response = await _api.post(
       ApiConstants.login,
       data: {
@@ -36,6 +57,12 @@ class AuthRepository {
   Future<UserModel?> restoreSession() async {
     final token = await _storage.getToken();
     if (token == null) return null;
+
+    // Local accounts don't need API verification — just restore from cache.
+    if (token.startsWith('local_')) {
+      final cached = _storage.getUser();
+      return cached != null ? UserModel.fromJson(cached) : null;
+    }
 
     _api.updateToken(token);
 

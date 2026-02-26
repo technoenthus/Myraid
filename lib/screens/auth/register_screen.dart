@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/utils/validators.dart';
+import '../../providers/auth_provider.dart';
 import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_text_field.dart';
 
@@ -41,8 +42,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     FocusScope.of(context).unfocus();
     setState(() => _isLoading = true);
 
-    // Simulate network delay for UX demonstration
-    await Future.delayed(const Duration(seconds: 2));
+    // Save account to local storage so the user can log in with these credentials.
+    await ref.read(storageServiceProvider).registerLocalUser(
+          username: _usernameCtrl.text.trim(),
+          password: _passwordCtrl.text,
+          firstName: _firstNameCtrl.text.trim(),
+          lastName: _lastNameCtrl.text.trim(),
+          email: _emailCtrl.text.trim(),
+        );
 
     if (!mounted) return;
     setState(() => _isLoading = false);

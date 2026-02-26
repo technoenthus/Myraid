@@ -24,8 +24,10 @@ flutter run
 
 | Field    | Value         |
 |----------|---------------|
-| Username | `emilys`      |
-| Password | `emilyspass`  |
+| Username | `Disha`      |
+| Password | `Dishapass`  |
+
+>
 
 > Tap **"Use Demo Credentials"** on the login screen to auto-fill.
 

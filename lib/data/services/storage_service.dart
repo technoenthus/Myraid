@@ -9,6 +9,7 @@ class StorageService {
   static const _userKey = 'cached_user';
   static const _tasksKey = 'cached_tasks';
   static const _themeKey = 'is_dark_mode';
+  static const _localUsersKey = 'local_registered_users';
 
   final FlutterSecureStorage _secure;
   final SharedPreferences _prefs;
@@ -44,6 +45,37 @@ class StorageService {
   }
 
   Future<void> clearUser() => _prefs.remove(_userKey);
+
+  // ── Local registered users ─────────────────────────────────────────────────
+
+  Future<void> registerLocalUser({
+    required String username,
+    required String password,
+    required String firstName,
+    required String lastName,
+    required String email,
+  }) async {
+    final users = _localUsersMap;
+    final id = 900000 + users.length + 1;
+    users[username.toLowerCase()] = {
+      'id': id,
+      'username': username,
+      'password': password,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+    };
+    await _prefs.setString(_localUsersKey, jsonEncode(users));
+  }
+
+  Map<String, dynamic>? getLocalUser(String username) =>
+      _localUsersMap[username.toLowerCase()] as Map<String, dynamic>?;
+
+  Map<String, dynamic> get _localUsersMap {
+    final data = _prefs.getString(_localUsersKey);
+    if (data == null) return {};
+    return jsonDecode(data) as Map<String, dynamic>;
+  }
 
   // ── Task cache ────────────────────────────────────────────────────────────
 
